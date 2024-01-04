@@ -25,6 +25,7 @@ const Loadable = (Component: ElementType) => (props: any) => {
  * =====================
  */
 import AuthGuard from '../guards/AuthGuard';
+import GuestGuard from '../guards/GuestGuard';
 
 const Login    = Loadable(lazy(() => import('../pages/Login/Login')));
 const Training = Loadable(lazy(() => import('../pages/Training/Training')));
@@ -33,7 +34,7 @@ export default function Router() {
     return useRoutes([
         {
             path: "/login",
-            element: <Login />,
+            element: <GuestGuard children={<Login />} />,
         },
         {
             path: "/",

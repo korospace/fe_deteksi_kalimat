@@ -1,17 +1,16 @@
 import { ReactNode, useEffect, useState } from "react";
+import { Navigate } from 'react-router-dom';
 import { enqueueSnackbar } from "notistack";
 
 // utils
 import axios from "../utils/axios";
 import { GetLocalToken } from "../utils/auth";
-// login
-import Login from "../pages/Login/Login";
 
 type AuthGuardProps = {
     children: ReactNode;
 };
 
-const AuthGuard = ({ children }: AuthGuardProps) => {
+const GuestGuard = ({ children }: AuthGuardProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -32,7 +31,7 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
         fetchData();
     }, []);
 
-    return isAuthenticated ? <>{children}</> : <Login />;
+    return isAuthenticated == false ? <>{children}</> : <Navigate to={'/'} replace={true}/>;
 };
 
-export default AuthGuard;
+export default GuestGuard;

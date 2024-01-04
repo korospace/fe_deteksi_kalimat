@@ -18,7 +18,6 @@ import FormProvider from "../../../components/hook-form/FormProvider";
 import { Login } from "../model/Functions";
 
 const LoginForm = () => {
-    
     const methods = useForm<LoginReq>({
         resolver: yupResolver(LoginSchema),
         defaultValues: LoginDefaultValues,
@@ -27,31 +26,31 @@ const LoginForm = () => {
     const { reset, handleSubmit, formState: { isDirty, isSubmitting }} = methods;
 
     const onSubmit = async (data: LoginReq) => {
-        const responseLogin = await Login(data);
+        const result = await Login(data);
 
-        console.log(responseLogin);
-        
+        if (result == true) {
+            window.location.reload();
+        }
+
         reset()
-        
-        return true;
     }
 
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Card sx={{ padding: '24px', boxSizing: 'border-box', width: '100%', maxWidth: '400px' }}>
                 <Grid container spacing={4}>
-                    <Grid item md={12}>
+                    <Grid item sm={12}>
                         <Typography variant="h5" sx={{ color: 'rgba(0,0,0,0.8)', textAlign: 'center', marginBottom: '20px' }} >
                             Login Dashboard
                         </Typography>
                     </Grid>
-                    <Grid item md={12}>
+                    <Grid item sm={12}>
                         <RHFTextField name="email" label="Email" />
                     </Grid>
-                    <Grid item md={12}>
+                    <Grid item sm={12}>
                         <RHFTextField name="password" label="Password" />
                     </Grid>
-                    <Grid item md={12}>
+                    <Grid item sm={12}>
                         <LoadingButton
                             sx={{ width: '100%', padding: '12px', marginTop: '28px' }}
                             disabled={!isDirty}
