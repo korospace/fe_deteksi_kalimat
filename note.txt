@@ -1,0 +1,18 @@
+1- yarn create vite
+    choose:
+    React >> TypeScrip
+
+2- cd project_name
+
+3- yarn install
+
+4- package:
+
+    - mui             -> yarn add @mui/material @emotion/react @emotion/styled
+    - axios           -> yarn add axios axios-hooks
+    - router          -> yarn add react-router-dom
+    - reach hook form -> yarn add react-hook-form
+    - yup             -> yarn add @hookform/resolvers
+    - mui/lab         -> yarn add @mui/lab
+
+3- yarn run dev
