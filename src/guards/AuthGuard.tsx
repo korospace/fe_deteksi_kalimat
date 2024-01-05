@@ -13,7 +13,7 @@ type AuthGuardProps = {
 
 const AuthGuard = ({ children }: AuthGuardProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+    
     useEffect(() => {
         const fetchData = async () => {
             try {

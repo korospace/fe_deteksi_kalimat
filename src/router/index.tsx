@@ -27,8 +27,14 @@ const Loadable = (Component: ElementType) => (props: any) => {
 import AuthGuard from '../guards/AuthGuard';
 import GuestGuard from '../guards/GuestGuard';
 
-const Login    = Loadable(lazy(() => import('../pages/Login/Login')));
-const Training = Loadable(lazy(() => import('../pages/Training/Training')));
+const Login      = Loadable(lazy(() => import('../pages/Login/Login')));
+const Dashboard  = Loadable(lazy(() => import('../pages/Dashboard/Dashboard')));
+const Training   = Loadable(lazy(() => import('../pages/Training/Training')));
+const Dataset    = Loadable(lazy(() => import('../pages/Dataset/Dataset')));
+const Category   = Loadable(lazy(() => import('../pages/Category/Category')));
+const UserAccess = Loadable(lazy(() => import('../pages/UserAccess/UserAccess')));
+const User       = Loadable(lazy(() => import('../pages/User/User')));
+const Logout     = Loadable(lazy(() => import('../pages/Logout/Logout')));
 
 export default function Router() {
     return useRoutes([
@@ -38,7 +44,15 @@ export default function Router() {
         },
         {
             path: "/",
-            element: <AuthGuard children={<Training />} />,
+            element: <AuthGuard children={<Dashboard />} />,
+            children: [
+                { path: '/training', element: <Training />, index: true },
+                { path: '/dataset', element: <Dataset />, index: true },
+                { path: '/category', element: <Category />, index: true },
+                { path: '/user_access', element: <UserAccess />, index: true },
+                { path: '/user', element: <User />, index: true },
+                { path: '/logout', element: <Logout />, index: true },
+            ],
         }
     ])
 }
