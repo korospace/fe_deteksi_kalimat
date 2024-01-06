@@ -8,20 +8,20 @@ import { Box, Button, Collapse, TableCell, TableRow } from "@mui/material";
  */
 
 /* types */
-import { UserAccessType } from "../model/Types";
+import { UserType } from "../model/Types";
 /* Components */
-import UserAccessForm from "./UserAccessForm";
-import UserAccessDeleteDialog from "./UserAccessDeleteDialog";
+import UserAccessForm from "./UserForm";
+import UserAccessDeleteDialog from "./UserDeleteDialog";
 
 /* Props */
 type Props = { 
   counter: number,
-  data: UserAccessType, 
-  handleDeleteProp: (data: UserAccessType) => void, 
-  handleUpdateProp: (dataNew: UserAccessType) => void 
+  data: UserType, 
+  handleDeleteProp: (data: UserType) => void, 
+  handleUpdateProp: (dataNew: UserType) => void 
 }
 
-const UserAccessList = ({ ...props }: Props) => {
+const UserList = ({ ...props }: Props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [openDelete, setOpenDelete] = useState<boolean>(false)
 
@@ -31,7 +31,8 @@ const UserAccessList = ({ ...props }: Props) => {
         <TableRow hover sx={{ '& > td': { borderBottom: '0px', cursor: 'pointer' } }} onClick={() => {setIsOpen(!isOpen)}}>
           <TableCell align="center">{props.counter}</TableCell>
           <TableCell align="left">{props.data.name}</TableCell>
-          <TableCell align="left">{props.data.description}</TableCell>
+          <TableCell align="left">{props.data.email}</TableCell>
+          <TableCell align="left">{props.data.user_access_name}</TableCell>
           <TableCell align="right" onClick={(e) => e.stopPropagation()}>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Button variant="outlined" color="warning" onClick={() => setIsOpen(true)}>
@@ -46,7 +47,7 @@ const UserAccessList = ({ ...props }: Props) => {
   
         {/* form edit row */}
         <TableRow sx={{ '& > td': { borderBottom: '1px solid rgba(0,0,0,0.1)' } }}>
-          <TableCell style={{ paddingBottom: '0', paddingTop: 0 }} colSpan={4}>
+          <TableCell style={{ paddingBottom: '0', paddingTop: 0 }} colSpan={5}>
             <Collapse in={isOpen} timeout="auto" unmountOnExit>
               <Box paddingBottom={3} paddingTop={3}> 
                   <UserAccessForm
@@ -70,4 +71,4 @@ const UserAccessList = ({ ...props }: Props) => {
     );
 }
 
-export default UserAccessList
+export default UserList

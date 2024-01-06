@@ -48,7 +48,7 @@ const LoginForm = () => {
                         <RHFTextField name="email" label="Email" />
                     </Grid>
                     <Grid item sm={12}>
-                        <RHFTextField name="password" label="Password" />
+                        <RHFTextField name="password" label="Password" type="password" />
                     </Grid>
                     <Grid item sm={12}>
                         <LoadingButton

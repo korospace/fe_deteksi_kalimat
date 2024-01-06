@@ -46,7 +46,7 @@ const CategoryList = ({ ...props }: Props) => {
   
         {/* form edit row */}
         <TableRow sx={{ '& > td': { borderBottom: '1px solid rgba(0,0,0,0.1)' } }}>
-          <TableCell style={{ paddingBottom: '0', paddingTop: 0 }} colSpan={7}>
+          <TableCell style={{ paddingBottom: '0', paddingTop: 0 }} colSpan={4}>
             <Collapse in={isOpen} timeout="auto" unmountOnExit>
               <Box paddingBottom={3} paddingTop={3}> 
                   <CategoryForm

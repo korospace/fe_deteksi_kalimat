@@ -7,19 +7,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 /* Types */
-import { UserAccessType } from "../model/Types";
+import { UserType } from "../model/Types";
 /* Functions */
-import { DeleteUserAccess } from '../model/Functions';
+import { DeleteUser } from '../model/Functions';
 
 /* Props */
 type Props = { 
-    data: UserAccessType, 
+    data: UserType, 
     openDialog: boolean,
     closeDialog: () => void,
-    handleDeleteProp: (data: UserAccessType) => void, 
+    handleDeleteProp: (data: UserType) => void, 
 }
 
-const UserAccessDeleteDialog = (props: Props) => {
+const UserDeleteDialog = (props: Props) => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ const UserAccessDeleteDialog = (props: Props) => {
   };
 
   const handleDelete = async () => {
-    const response = await DeleteUserAccess(props.data.id??0)
+    const response = await DeleteUser(props.data.id??0)
     
     if (response === true) {
         handleClose();
@@ -49,11 +49,11 @@ const UserAccessDeleteDialog = (props: Props) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Delete User Access?"}
+          {"Delete User?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Anda yakin ingin menghapus user access <b>{props.data.name}</b>
+            Anda yakin ingin menghapus user <b>{props.data.name}</b>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -69,4 +69,4 @@ const UserAccessDeleteDialog = (props: Props) => {
   );
 }
 
-export default UserAccessDeleteDialog
+export default UserDeleteDialog
