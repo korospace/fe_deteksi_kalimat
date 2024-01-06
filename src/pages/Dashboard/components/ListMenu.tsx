@@ -32,7 +32,7 @@ export default function ListMenu(props: Props) {
         {GetListMenu().map((menu, i) => (
           menu.Title == 'divider' 
           ?
-          <Divider />
+          <Divider key={i} />
           :
           <ListItem key={i} disablePadding>
             <ListItemButton onClick={() => handleChangePageTitle(menu.Title, menu.Path)}>
