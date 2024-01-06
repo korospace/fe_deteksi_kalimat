@@ -46,12 +46,12 @@ export default function Router() {
             path: "/",
             element: <AuthGuard children={<Dashboard />} />,
             children: [
-                { path: '/training', element: <Training />, index: true },
-                { path: '/dataset', element: <Dataset />, index: true },
-                { path: '/category', element: <Category />, index: true },
-                { path: '/user_access', element: <UserAccess />, index: true },
-                { path: '/user', element: <User />, index: true },
-                { path: '/logout', element: <Logout />, index: true },
+                { path: '', element: <Training />, },
+                { path: '/dataset', element: <Dataset />, },
+                { path: '/category', element: <Category />, },
+                { path: '/user_access', element: <UserAccess />, },
+                { path: '/user', element: <User />, },
+                { path: '/logout', element: <Logout />, },
             ],
         }
     ])
