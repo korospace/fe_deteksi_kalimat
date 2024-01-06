@@ -12,7 +12,7 @@ export const Login = async (payload: LoginReq): Promise<boolean> => {
     });
 
     enqueueSnackbar("Login berhasil", { variant: 'success' });
-    SetLocalToken(response.data.data.Token);
+    SetLocalToken(response.data.data.token);
     return true;
   } 
   catch (error: any) {

@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router';
 
 // Components
-import { ListMenu1, ListMenu2 } from '../models/Functions';
+import { GetListMenu } from '../models/Functions';
 import { useCallback } from 'react';
 
 interface Props {
@@ -29,22 +29,11 @@ export default function ListMenu(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {ListMenu1().map((menu, i) => (
-          <ListItem key={i} disablePadding>
-            <ListItemButton onClick={() => handleChangePageTitle(menu.Title, menu.Path)}>
-                <Icon icon={menu.Icon} fontSize='26px' />
-                <Typography sx={{ color: 'rgba(0,0,0,0.8)', fontSize: '20px', textTransform: 'capitalize', marginLeft: '16px' }} >
-                    {menu.Title}
-                </Typography>
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      
-      <Divider />
-
-      <List>
-        {ListMenu2().map((menu, i) => (
+        {GetListMenu().map((menu, i) => (
+          menu.Title == 'divider' 
+          ?
+          <Divider />
+          :
           <ListItem key={i} disablePadding>
             <ListItemButton onClick={() => handleChangePageTitle(menu.Title, menu.Path)}>
                 <Icon icon={menu.Icon} fontSize='26px' />

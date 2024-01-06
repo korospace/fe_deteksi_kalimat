@@ -17,7 +17,7 @@ const GuestGuard = ({ children }: AuthGuardProps) => {
         const fetchData = async () => {
             try {
                 axios.defaults.headers.common.Authorization = GetLocalToken();
-                await axios.get('/auth/me');
+                await axios.get('/user/me');
                 setIsAuthenticated(true);
             } catch (error: any) {
                 if (error.response?.status === 401) {

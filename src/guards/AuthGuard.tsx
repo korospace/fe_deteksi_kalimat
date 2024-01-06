@@ -3,7 +3,7 @@ import { enqueueSnackbar } from "notistack";
 
 // utils
 import axios from "../utils/axios";
-import { GetLocalToken } from "../utils/auth";
+import { GetLocalToken, SetLocalUserInfo } from "../utils/auth";
 // login
 import Login from "../pages/Login/Login";
 
@@ -18,8 +18,9 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
         const fetchData = async () => {
             try {
                 axios.defaults.headers.common.Authorization = GetLocalToken();
-                await axios.get('/auth/me');
+                const response = await axios.get('/user/me');
                 setIsAuthenticated(true);
+                SetLocalUserInfo(response.data.data)
             } catch (error: any) {
                 if (error.response?.status === 401) {
                     setIsAuthenticated(false);
