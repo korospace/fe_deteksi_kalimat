@@ -1,11 +1,13 @@
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router';
 import { AppBar, Box, Drawer, IconButton, Toolbar, Typography } from "@mui/material"
 import { Icon } from '@iconify/react';
+import { GetLocalUserInfo } from '../../utils/auth';
 
 // Components
 import ListMenu from "./components/ListMenu"
-import { Outlet } from 'react-router';
+// Functions
+import { menusByUserType } from './models/Functions';
 
 interface Props {
     window?: () => Window;
@@ -15,20 +17,28 @@ const drawerWidth = 270;
 
 const Dashboard = (props: Props) => {
 
-    const { window } = props;
-
+    /* Page Title */
     const [pagetTitle, setPageTitle] = useState<string>('training');
+    const { pathname } = useLocation();
 
+    useEffect(() => {
+        const userinfo = GetLocalUserInfo();
+        const listMenu = menusByUserType[userinfo.user_access_id]
+        const selectedMenu = listMenu.filter(menu => {
+            if (menu.Path == pathname) {
+                return menu
+            }
+        })
+        setPageTitle(selectedMenu[0].Title)
+    }, [pathname])
+
+    /* Responsive Nav */
+    const { window } = props;
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-
     const container = window !== undefined ? () => window().document.body : undefined;
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
-    };
-
-    const handleChangePageTitle = (title: string) => {
-        setPageTitle(title);
     };
     
     return (
@@ -74,7 +84,7 @@ const Dashboard = (props: Props) => {
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                 >
-                    {<ListMenu changePageTitle={(title) => handleChangePageTitle(title)} />}
+                    {<ListMenu />}
                 </Drawer>
                 <Drawer
                     variant="permanent"
@@ -84,7 +94,7 @@ const Dashboard = (props: Props) => {
                     }}
                     open
                 >
-                    {<ListMenu changePageTitle={(title) => handleChangePageTitle(title)} />}
+                    {<ListMenu />}
                 </Drawer>
             </Box>
             <Box

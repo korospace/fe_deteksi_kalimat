@@ -51,8 +51,11 @@ export default function Router() {
                 { path: '/category', element: <Category />, },
                 { path: '/user_access', element: <UserAccess />, },
                 { path: '/user', element: <User />, },
-                { path: '/logout', element: <Logout />, },
             ],
-        }
+        },
+        {
+            path: "/logout",
+            element: <AuthGuard children={<Logout />} />,
+        },
     ])
 }

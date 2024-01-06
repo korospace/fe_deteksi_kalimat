@@ -16,6 +16,10 @@ export const SetLocalToken = (token: string) => {
     localStorage.setItem(token_key, JSON.stringify(token));
 }
 
+export const RemoveLocalToken = () => {
+    localStorage.removeItem(token_key);
+}
+
 /**
  * USER INFO
  * ==========================
@@ -30,4 +34,8 @@ export const GetLocalUserInfo = (): UserInfoType => {
 
 export const SetLocalUserInfo = (data: UserInfoType) => {
     localStorage.setItem(userinfo_key, JSON.stringify(data));
+}
+
+export const RemoveLocalUserInfo = () => {
+    localStorage.removeItem(userinfo_key);
 }

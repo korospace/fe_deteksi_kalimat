@@ -3,11 +3,11 @@ import { GetLocalUserInfo } from "../../../utils/auth";
 import { MenuType } from "../models/Types";
 
 // Definisikan menu yang terkait dengan masing-masing jenis pengguna
-const menusByUserType: Record<UserType, MenuType[]> = {
+export const menusByUserType: Record<UserType, MenuType[]> = {
   [UserType.SuperAdmin]: [
     {
         Icon: "carbon:machine-learning-model",
-        Path: "/training",
+        Path: "/",
         Title: "training"
     },
     {
@@ -44,7 +44,7 @@ const menusByUserType: Record<UserType, MenuType[]> = {
   [UserType.Pakar]: [
     {
         Icon: "carbon:machine-learning-model",
-        Path: "/training",
+        Path: "/",
         Title: "training"
     },
     {

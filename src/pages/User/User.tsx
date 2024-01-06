@@ -3,19 +3,19 @@ import { useEffect, useState } from "react";
 import { Icon } from '@iconify/react';
 
 /* Components */
-import CategoryForm from "./components/UserForm";
+import UserForm from "./components/UserForm";
 import { UserType } from "./model/Types";
 import { GetUserList } from "./model/Functions";
-import CategoryList from "./components/UserList";
+import UserList from "./components/UserList";
 
 const User = () => {
     const [showFormCreate, setShowFormCreate] = useState<boolean>(false);
-    const [categoryList, setCategoryList] = useState<UserType[]>([]);
+    const [userList, setUserList] = useState<UserType[]>([]);
 
     /* get list */
     const fetchData = async () => {
         const data = await GetUserList();
-        setCategoryList(data)
+        setUserList(data)
     };
 
     useEffect(() => {
@@ -24,7 +24,9 @@ const User = () => {
 
     /* After Update */
     const handleUpdate = (dataNew: UserType): void => {
-        categoryList.map((e) => {
+        console.log(dataNew);
+        
+        userList.map((e) => {
             if (e.id == dataNew.id) {
                 e.name = dataNew.name
                 e.email = dataNew.email
@@ -32,20 +34,20 @@ const User = () => {
             }
         })
 
-        setCategoryList([])
-        setCategoryList((prevData) => [...prevData, ...categoryList]);
+        setUserList([])
+        setUserList((prevData) => [...prevData, ...userList]);
     }
 
     /* After Delete */
     const handleDelete = (data: UserType): void => {
-        const newCategoryList = categoryList.filter((e) => {
+        const newCategoryList = userList.filter((e) => {
             if (e.id != data.id) {
                 return e
             }
         })
 
-        setCategoryList([])
-        setCategoryList((prevData) => [...prevData, ...newCategoryList]);
+        setUserList([])
+        setUserList((prevData) => [...prevData, ...newCategoryList]);
     }
 
     return (
@@ -81,10 +83,10 @@ const User = () => {
                 <TableBody>
                     {/* Create New */}
                     <TableRow> 
-                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                             <Collapse in={showFormCreate===true} timeout="auto" unmountOnExit>
                                 <Box sx={{ paddingTop: 6, paddingBottom: 6 }}>
-                                    <CategoryForm
+                                    <UserForm
                                         handleCancleProp={() => {setShowFormCreate(false)}} 
                                         handleCreateProp={() => {fetchData();}} 
                                     />
@@ -94,9 +96,9 @@ const User = () => {
                     </TableRow>
 
                     {/* List */}
-                    {categoryList.map((data: UserType, index) => {
+                    {userList.map((data: UserType, index) => {
                         return (
-                            <CategoryList
+                            <UserList
                                 key={index}
                                 data={data}
                                 counter={index + 1}

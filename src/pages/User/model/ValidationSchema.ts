@@ -13,5 +13,5 @@ export const UserDefaultValues: UserType = {
     name: '',
     email: '',
     password: '',
-    user_access_id: 1,
+    user_access_id: 0,
 };

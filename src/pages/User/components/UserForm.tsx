@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -6,16 +6,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
  * Components - global
  * ========================
  */
-import { Box, Button, Card, Grid, MenuItem, Select } from "@mui/material"
+import { Box, Button, Card, Grid, MenuItem } from "@mui/material"
 import { LoadingButton } from "@mui/lab";
 import RHFTextField from "../../../components/hook-form/RHFTextField";
+import RHFSelect from "../../../components/hook-form/RHFSelect";
 import FormProvider from "../../../components/hook-form/FormProvider";
 
 /* Types */
 import { UserType } from "../model/Types";
+import { UserAccessType } from "../../UserAccess/model/Types";
 /* Functions */
 import { UserSchema, UserDefaultValues } from "../model/ValidationSchema";
 import { CreateUser, UpdateUser } from "../model/Functions";
+import { GetUserAccessList } from "../../UserAccess/model/Functions";
 
 /* Props */
 type Props = {
@@ -31,6 +34,18 @@ const UserForm = (props: Props) => {
     const methods = useForm<UserType>({resolver: yupResolver(UserSchema),defaultValues: UserDefaultValues});
 
     const { reset, handleSubmit, formState: { isDirty, isSubmitting } } = methods;
+
+    /* Get Option Of User Access  */
+    const [optUserAccess, setOptUserAccess] = useState<UserAccessType[]>([])
+
+    const fetchUserAccess = async () => {
+        const data = await GetUserAccessList();
+        setOptUserAccess(data)
+    };
+
+    useEffect(() => {
+        fetchUserAccess();
+    },[])
 
     /* FIll Inputs */
     useEffect(() => {
@@ -70,15 +85,19 @@ const UserForm = (props: Props) => {
                         <RHFTextField name="password" label="New Password" type="password" />
                     </Grid>
                     <Grid item xs={6}>
-                            <Select
-                                name="user_access_id"
-                                label="User Access"
-                                sx={{ width: '100%' }}
+                        <RHFSelect
+                            name="user_access_id"
+                            label="User Access"
+                            InputLabelProps={{ shrink: true }}
+                            SelectProps={{ native: false }}
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            <MenuItem value={0} selected>{"- pilih -"}</MenuItem>
+                            {
+                                optUserAccess.map((el : UserAccessType, index: any) => (
+                                    <MenuItem key={index} value={el.id}>{el.name}</MenuItem>
+                                ))
+                            }
+                        </RHFSelect>
                     </Grid>
 
                     <Grid item xs={12}>
