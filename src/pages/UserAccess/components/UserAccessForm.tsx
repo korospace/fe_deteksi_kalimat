@@ -12,23 +12,23 @@ import RHFTextField from "../../../components/hook-form/RHFTextField";
 import FormProvider from "../../../components/hook-form/FormProvider";
 
 /* Types */
-import { CategoryType } from "../model/Types";
+import { UserAccessType } from "../model/Types";
 /* Functions */
-import { CategorySchema, CategoryDefaultValues } from "../model/ValidationSchema";
-import { CreateCategory, UpdateCategory } from "../model/Functions";
+import { UserAccessSchema, UserAccessDefaultValues } from "../model/ValidationSchema";
+import { CreateUserAccess, UpdateUserAccess } from "../model/Functions";
 
 /* Props */
 type Props = {
-    data?: CategoryType,
+    data?: UserAccessType,
     handleCancleProp: (showForm: boolean) => void,
     handleCreateProp?: () => void,
-    handleUpdateProp?: (dataNew: CategoryType) => void,
+    handleUpdateProp?: (dataNew: UserAccessType) => void,
 };
 
-const CategoryForm = (props: Props) => {    
+const UserAccessForm = (props: Props) => {    
 
     /* Form Config */
-    const methods = useForm<CategoryType>({resolver: yupResolver(CategorySchema),defaultValues: CategoryDefaultValues});
+    const methods = useForm<UserAccessType>({resolver: yupResolver(UserAccessSchema),defaultValues: UserAccessDefaultValues});
 
     const { reset, handleSubmit, formState: { isDirty, isSubmitting } } = methods;
 
@@ -40,16 +40,16 @@ const CategoryForm = (props: Props) => {
     },[])
   
     /* button submit */
-    const submitHandler = async (data: CategoryType) => {
+    const submitHandler = async (data: UserAccessType) => {
         if (data.id === 0 && props.handleCreateProp !== undefined) { // create
-            const response = await CreateCategory(data)
+            const response = await CreateUserAccess(data)
             if (response != null) {
                 reset()
                 props.handleCreateProp()
             }
         }
         else if (data !== null && props.handleUpdateProp !== undefined) { // update
-            const response = await UpdateCategory(data)
+            const response = await UpdateUserAccess(data)
             if (response != null) {
                 props.handleUpdateProp(response)
             }
@@ -83,4 +83,4 @@ const CategoryForm = (props: Props) => {
     );
 }
 
-export default CategoryForm
+export default UserAccessForm
