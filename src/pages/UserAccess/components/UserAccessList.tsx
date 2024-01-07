@@ -32,7 +32,7 @@ const UserAccessList = ({ ...props }: Props) => {
           <TableCell align="center">{props.counter}</TableCell>
           <TableCell align="left">{props.data.name}</TableCell>
           <TableCell align="left">{props.data.description}</TableCell>
-          <TableCell align="right" onClick={(e) => e.stopPropagation()}>
+          <TableCell align="center" onClick={(e) => e.stopPropagation()}>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Button variant="outlined" color="warning" onClick={() => setIsOpen(true)}>
                 <Icon icon="bxs:edit" fontSize='18px' />

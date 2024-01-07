@@ -24,8 +24,6 @@ const User = () => {
 
     /* After Update */
     const handleUpdate = (dataNew: UserType): void => {
-        console.log(dataNew);
-        
         userList.map((e) => {
             if (e.id == dataNew.id) {
                 e.name = dataNew.name
@@ -65,8 +63,9 @@ const User = () => {
                 
                 <colgroup>
                     <col width="100" />
-                    <col width="250" />
                     <col width="*" />
+                    <col width="*" />
+                    <col width="200" />
                     <col width="200" />
                 </colgroup>
 

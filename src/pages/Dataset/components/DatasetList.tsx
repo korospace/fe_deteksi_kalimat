@@ -8,20 +8,20 @@ import { Box, Button, Collapse, TableCell, TableRow } from "@mui/material";
  */
 
 /* types */
-import { UserType } from "../model/Types";
+import { DatasetType } from "../model/Types";
 /* Components */
-import UserAccessForm from "./UserForm";
-import UserAccessDeleteDialog from "./UserDeleteDialog";
+import DatasetForm from "./DatasetForm";
+import DatasetDeleteDialog from "./DatasetDeleteDialog";
 
 /* Props */
 type Props = { 
   counter: number,
-  data: UserType, 
-  handleDeleteProp: (data: UserType) => void, 
-  handleUpdateProp: (dataNew: UserType) => void 
+  data: DatasetType, 
+  handleDeleteProp: (data: DatasetType) => void, 
+  handleUpdateProp: (dataNew: DatasetType) => void 
 }
 
-const UserList = ({ ...props }: Props) => {
+const DatasetList = ({ ...props }: Props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [openDelete, setOpenDelete] = useState<boolean>(false)
 
@@ -30,10 +30,13 @@ const UserList = ({ ...props }: Props) => {
         {/* list row */}
         <TableRow hover sx={{ '& > td': { borderBottom: '0px', cursor: 'pointer' } }} onClick={() => {setIsOpen(!isOpen)}}>
           <TableCell align="center">{props.counter}</TableCell>
-          <TableCell align="left">{props.data.name}</TableCell>
-          <TableCell align="left">{props.data.email}</TableCell>
-          <TableCell align="left">{props.data.user_access_name}</TableCell>
-          <TableCell align="center" onClick={(e) => e.stopPropagation()}>
+          <TableCell align="left">{props.data.raw}</TableCell>
+          <TableCell align="left">{props.data.clean}</TableCell>
+          <TableCell align="left">{props.data.stemming}</TableCell>
+          <TableCell align="left">{props.data.stopword}</TableCell>
+          <TableCell align="left">{props.data.tokenization}</TableCell>
+          <TableCell align="center">{props.data.category}</TableCell>
+          <TableCell align="right" onClick={(e) => e.stopPropagation()}>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Button variant="outlined" color="warning" onClick={() => setIsOpen(true)}>
                 <Icon icon="bxs:edit" fontSize='18px' />
@@ -47,10 +50,10 @@ const UserList = ({ ...props }: Props) => {
   
         {/* form edit row */}
         <TableRow sx={{ '& > td': { borderBottom: '1px solid rgba(0,0,0,0.1)' } }}>
-          <TableCell style={{ paddingBottom: '0', paddingTop: 0 }} colSpan={5}>
+          <TableCell style={{ paddingBottom: '0', paddingTop: 0 }} colSpan={8}>
             <Collapse in={isOpen} timeout="auto" unmountOnExit>
               <Box paddingBottom={3} paddingTop={3}> 
-                  <UserAccessForm
+                  <DatasetForm
                       data={props.data}
                       handleCancleProp={() => {setIsOpen(false)}} 
                       handleUpdateProp={(dataNew) => props.handleUpdateProp(dataNew)} 
@@ -61,7 +64,7 @@ const UserList = ({ ...props }: Props) => {
         </TableRow>
 
         {/* Delete */}
-        <UserAccessDeleteDialog 
+        <DatasetDeleteDialog 
           data={props.data} 
           openDialog={openDelete} 
           closeDialog={() => setOpenDelete(false)}
@@ -71,4 +74,4 @@ const UserList = ({ ...props }: Props) => {
     );
 }
 
-export default UserList
+export default DatasetList
