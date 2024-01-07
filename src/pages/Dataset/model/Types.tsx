@@ -9,5 +9,5 @@ export interface DatasetType {
 }
 
 export interface DatasetImportType {
-	file_dataset: any 
+	file_dataset: any[] 
 }

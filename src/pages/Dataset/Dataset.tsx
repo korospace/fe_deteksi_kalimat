@@ -17,14 +17,15 @@ const Dataset = () => {
     const [datasetList, setDatasetList] = useState<DatasetType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        if (showFormCreate == true) {
-            setShowFormImport(false)
-        }  
-        if (showFormImport == true) {
-            setShowFormCreate(false)
-        }
-    },[showFormCreate, showFormImport])
+    const openCreate = () => {
+        setShowFormCreate(true)
+        setShowFormImport(false)
+    }
+
+    const openImport = () => {
+        setShowFormCreate(false)
+        setShowFormImport(true)
+    }
 
     /* get list */
     const fetchData = async () => {
@@ -71,11 +72,11 @@ const Dataset = () => {
         <Box>
             {/* button */}
             <Box sx={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '38px', gap: 2 }}>
-                <Button variant="outlined" color="info" onClick={() => setShowFormCreate(true)}>
+                <Button variant="outlined" color="info" onClick={() => openCreate()}>
                     <Icon icon="typcn:plus" fontSize='18px' />
                     <Box sx={{ display: 'inline', marginLeft: '12px' }}>Create</Box>
                 </Button>
-                <Button variant="outlined" color="warning" onClick={() => setShowFormImport(true)}>
+                <Button variant="outlined" color="warning" onClick={() => openImport()}>
                     <Icon icon="material-symbols:upload" fontSize='18px' />
                     <Box sx={{ display: 'inline', marginLeft: '12px' }}>Import</Box>
                 </Button>

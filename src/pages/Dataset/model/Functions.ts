@@ -1,6 +1,6 @@
 import { enqueueSnackbar } from "notistack";
 import axios from "../../../utils/axios";
-import { DatasetImportType, DatasetType } from "./Types";
+import { DatasetType } from "./Types";
 
 /* Get List */
 export const GetDatasetList = async (): Promise<DatasetType[]> => {
@@ -44,11 +44,14 @@ export const CreateDataset = async (payload: DatasetType): Promise<DatasetType |
 };
 
 /* Import */
-export const ImportDataset = async (payload: DatasetImportType): Promise<boolean> => {
+export const ImportDataset = async (file: any): Promise<boolean> => {
   try {
-    await axios.post('/dataset/import', payload, {
+    const formData = new FormData();
+    formData.append('file_dataset', file);
+
+    await axios.post('/dataset/import', formData, {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
     });
 

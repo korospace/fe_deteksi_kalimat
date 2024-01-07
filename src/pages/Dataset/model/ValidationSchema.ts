@@ -22,9 +22,9 @@ export const DatasetDefaultValues: DatasetType = {
 };
 
 export const DatasetImportSchema = Yup.object().shape({
-    file_dataset: Yup.object().required()
+    file_dataset: Yup.array().required()
 });
 
 export const DatasetImportDefaultValues: DatasetImportType = {
-    file_dataset: {},
+    file_dataset: [],
 };
