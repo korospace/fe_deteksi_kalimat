@@ -11,7 +11,7 @@ import RHFTextField from "../../../components/hook-form/RHFTextField";
 import FormProvider from "../../../components/hook-form/FormProvider";
 
 /* Types */
-import { TrainingDataType } from "../model/Types";
+import { TrainingSingleIType } from "../model/Types";
 import { TrainSingle } from "../model/Function";
 /* Functions */
 // import { DatasetSchema, DatasetDefaultValues } from "../model/ValidationSchema";
@@ -19,16 +19,16 @@ import { TrainSingle } from "../model/Function";
 
 /* Props */
 type Props = {
-  data?: TrainingDataType,
+  data?: TrainingSingleIType,
   handleCancleProp: (showForm: boolean) => void,
   handleCreateProp?: () => void,
-  handleUpdateProp?: (dataNew: TrainingDataType) => void,
+  handleUpdateProp?: (dataNew: TrainingSingleIType) => void,
 };
 
 const TrainingForm = (props: Props) => {
 
   /* Form Config */
-  const methods = useForm<TrainingDataType>({
+  const methods = useForm<TrainingSingleIType>({
     // resolver: yupResolver(DatasetSchema),
     // defaultValues: DatasetDefaultValues
   });
@@ -43,7 +43,7 @@ const TrainingForm = (props: Props) => {
   }, [])
 
   /* button submit */
-  const submitHandler = async (data: TrainingDataType) => {
+  const submitHandler = async (data: TrainingSingleIType) => {
     if (data.raw_text != "") { // create
       const response = await TrainSingle(data)
       if (response != null) {

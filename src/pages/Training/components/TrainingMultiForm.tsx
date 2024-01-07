@@ -11,7 +11,7 @@ import { LoadingButton } from "@mui/lab";
 import FormProvider from "../../../components/hook-form/FormProvider";
 
 /* Types */
-import { TrainingImportType } from "../model/Types";
+import { TrainingMultiType } from "../model/Types";
 /* Functions */
 import { ImportTraining } from "../model/Function";
 import { TrainingImportDefaultValues } from "../model/ValidationSchema";
@@ -23,10 +23,10 @@ type Props = {
   handleImportProp: (data: any) => void,
 };
 
-const TrainingImportForm = (props: Props) => {
+const TrainingMultiForm = (props: Props) => {
 
   /* Form Config */
-  const methods = useForm<TrainingImportType>({
+  const methods = useForm<TrainingMultiType>({
     defaultValues: TrainingImportDefaultValues
   });
   const { watch, handleSubmit, setValue, formState: { isSubmitting } } = methods;
@@ -53,7 +53,7 @@ const TrainingImportForm = (props: Props) => {
   };
 
   /* button submit */
-  const submitHandler = async (data: TrainingImportType) => {
+  const submitHandler = async (data: TrainingMultiType) => {
     const response = await ImportTraining(data.file_bulktraining[0])
     if (response == true) {
       setIsDirty(false)
@@ -109,4 +109,4 @@ const TrainingImportForm = (props: Props) => {
   );
 }
 
-export default TrainingImportForm
+export default TrainingMultiForm

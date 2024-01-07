@@ -9,7 +9,7 @@ import { Box, Button, Collapse, TableCell, TableRow } from "@mui/material";
 
 /* types */
 import { TrainingDataType } from "../model/Types";
-import TrainingForm from "./TrainingForm";
+import TrainingForm from "./TrainingSingleForm";
 
 /* Components */
 

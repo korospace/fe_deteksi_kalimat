@@ -9,7 +9,7 @@ export const TrainSingle = async (params: TrainingSingleIForm) => {
 
     const response = await axios.post("/training/single", params, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
     })
 

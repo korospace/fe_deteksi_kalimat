@@ -1,12 +1,16 @@
-export type TrainingSingleIForm = {
-  raw_text: string
-}
-
-export type TrainingDataType = {
+export type TrainingSingleIType = {
   raw_text: string
   best_category: string
 }
 
-export type TrainingImportType = {
+export type TrainingMultiType = {
   file_bulktraining: any[]
+}
+
+export type ResultSingleType = {
+
+}
+
+export type ResultMultiType = {
+  
 }
