@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import Iconify from "../../../components/Iconify";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 /**
  * Components - global
@@ -13,21 +14,22 @@ import FormProvider from "../../../components/hook-form/FormProvider";
 /* Types */
 import { TrainingMultiType } from "../model/Types";
 /* Functions */
-import { ImportTraining } from "../model/Function";
-import { TrainingImportDefaultValues } from "../model/ValidationSchema";
+import { TrainingMulti } from "../model/Function";
+import { TrainingMultiDefaultValues, TrainingMultiSchema } from "../model/ValidationSchema";
 
 
 /* Props */
 type Props = {
   handleCancleProp: (showForm: boolean) => void,
-  handleImportProp: (data: any) => void,
+  handleUpdateProp: (data: any) => void,
 };
 
 const TrainingMultiForm = (props: Props) => {
 
   /* Form Config */
   const methods = useForm<TrainingMultiType>({
-    defaultValues: TrainingImportDefaultValues
+    resolver: yupResolver(TrainingMultiSchema),
+    defaultValues: TrainingMultiDefaultValues
   });
   const { watch, handleSubmit, setValue, formState: { isSubmitting } } = methods;
   const formValues = watch();
@@ -54,11 +56,11 @@ const TrainingMultiForm = (props: Props) => {
 
   /* button submit */
   const submitHandler = async (data: TrainingMultiType) => {
-    const response = await ImportTraining(data.file_bulktraining[0])
-    if (response == true) {
+    const response = await TrainingMulti(data.file_bulktraining[0])
+    if (response != null) {
       setIsDirty(false)
       setFileName('')
-      props.handleImportProp(response)
+      props.handleUpdateProp(response)
     }
   };
 

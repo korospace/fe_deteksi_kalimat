@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 /**
  * Components - global
@@ -11,26 +12,24 @@ import RHFTextField from "../../../components/hook-form/RHFTextField";
 import FormProvider from "../../../components/hook-form/FormProvider";
 
 /* Types */
-import { TrainingSingleIType } from "../model/Types";
-import { TrainSingle } from "../model/Function";
+import { ResultSingleType, TrainingSingleIType } from "../model/Types";
 /* Functions */
-// import { DatasetSchema, DatasetDefaultValues } from "../model/ValidationSchema";
-// import { CreateDataset, UpdateDataset } from "../model/Functions";
+import { TrainingSingleDefaultValues, TrainingSingleSchema } from "../model/ValidationSchema";
+import { TrainSingle } from "../model/Function";
 
 /* Props */
 type Props = {
   data?: TrainingSingleIType,
   handleCancleProp: (showForm: boolean) => void,
-  handleCreateProp?: () => void,
-  handleUpdateProp?: (dataNew: TrainingSingleIType) => void,
+  handleUpdateProp: (data: ResultSingleType) => void,
 };
 
 const TrainingForm = (props: Props) => {
 
   /* Form Config */
   const methods = useForm<TrainingSingleIType>({
-    // resolver: yupResolver(DatasetSchema),
-    // defaultValues: DatasetDefaultValues
+    resolver: yupResolver(TrainingSingleSchema),
+    defaultValues: TrainingSingleDefaultValues
   });
 
   const { reset, handleSubmit, formState: { isDirty, isSubmitting } } = methods;
@@ -47,8 +46,7 @@ const TrainingForm = (props: Props) => {
     if (data.raw_text != "") { // create
       const response = await TrainSingle(data)
       if (response != null) {
-        props.handleUpdateProp && props.handleUpdateProp(data)
-        reset()
+        props.handleUpdateProp && props.handleUpdateProp(response)
       }
     }
   };
