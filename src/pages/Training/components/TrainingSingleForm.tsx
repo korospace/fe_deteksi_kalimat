@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -6,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
  * Components - global
  * ========================
  */
-import { Box, Button, Card, Grid } from "@mui/material"
+import { Box, Card, Grid } from "@mui/material"
 import { LoadingButton } from "@mui/lab";
 import RHFTextField from "../../../components/hook-form/RHFTextField";
 import FormProvider from "../../../components/hook-form/FormProvider";
@@ -19,12 +18,10 @@ import { TrainSingle } from "../model/Function";
 
 /* Props */
 type Props = {
-  data?: TrainingSingleIType,
-  handleCancleProp: (showForm: boolean) => void,
   handleUpdateProp: (data: ResultSingleType) => void,
 };
 
-const TrainingForm = (props: Props) => {
+const TrainingSingleForm = (props: Props) => {
 
   /* Form Config */
   const methods = useForm<TrainingSingleIType>({
@@ -32,22 +29,13 @@ const TrainingForm = (props: Props) => {
     defaultValues: TrainingSingleDefaultValues
   });
 
-  const { reset, handleSubmit, formState: { isDirty, isSubmitting } } = methods;
-
-  /* FIll Inputs */
-  useEffect(() => {
-    if (props.data !== undefined) {
-      reset(props.data)
-    }
-  }, [])
+  const { handleSubmit, formState: { isDirty, isSubmitting } } = methods;
 
   /* button submit */
   const submitHandler = async (data: TrainingSingleIType) => {
-    if (data.raw_text != "") { // create
-      const response = await TrainSingle(data)
-      if (response != null) {
-        props.handleUpdateProp && props.handleUpdateProp(response)
-      }
+    const response = await TrainSingle(data)
+    if (response != null) {
+      props.handleUpdateProp(response)
     }
   };
 
@@ -56,7 +44,7 @@ const TrainingForm = (props: Props) => {
       <Card sx={{ p: 5 }} variant="outlined">
         <Grid container spacing={5}>
           <Grid item xs={12}>
-            <RHFTextField name="raw_text" label="Kalimat" fullWidth />
+            <RHFTextField name="text" label="Kalimat" fullWidth />
           </Grid>
           <Grid item xs={12}>
             <Box display="flex" justifyContent={'flex-end'}>
@@ -64,7 +52,6 @@ const TrainingForm = (props: Props) => {
                 <LoadingButton disabled={!isDirty} type="submit" variant="outlined" loading={isSubmitting}>
                   Submit
                 </LoadingButton>
-                <Button variant="outlined" color="inherit" onClick={() => props.handleCancleProp(false)}>Cancel</Button>
               </Box>
             </Box>
           </Grid>
@@ -74,4 +61,4 @@ const TrainingForm = (props: Props) => {
   );
 }
 
-export default TrainingForm
+export default TrainingSingleForm

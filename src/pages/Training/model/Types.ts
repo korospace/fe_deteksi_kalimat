@@ -1,26 +1,26 @@
 export type TrainingSingleIType = {
-  raw_text: string
-}
-
-export type TrainingMultiType = {
-  file_bulktraining: any[]
-}
-
-export type ConfusionMatrixType = {
-  FN: number,
-  FP: number,
-  TN: number,
-  TP: number
+  text: string
 }
 
 export type ResultSingleType = {
-  best_category: string,
-  best_score: number,
-  bobot: any
+  raw_text        : string,
+  preproccess_text: string,
+  summary    : string,
+  best_score : number,
+  tresh_hold : number,
+  totallkata : number,
+  calculate  : CalculateType[],
 }
 
-export type ResultMultiType = {
-  confusion_matrix: ConfusionMatrixType,
-  accuracy: number
-  predictions: any[]
+export type CalculateType = {
+  kalimat  : string,
+  totkata  : number,
+  arr_kata : string[]
+  tot_kata_dalam_text: any,
+  TFWi     : any,
+	IDFWi    : any,
+	WWi      : any,
+	TWWi     : any,
+	NFS      : any,
+	WS       : any,
 }

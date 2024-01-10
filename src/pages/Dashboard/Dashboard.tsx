@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { AppBar, Box, Drawer, IconButton, Toolbar, Typography } from "@mui/material"
 import { Icon } from '@iconify/react';
-import { GetLocalUserInfo } from '../../utils/auth';
 
 // Components
 import ListMenu from "./components/ListMenu"
@@ -22,8 +21,7 @@ const Dashboard = (props: Props) => {
     const { pathname } = useLocation();
 
     useEffect(() => {
-        const userinfo = GetLocalUserInfo();
-        const listMenu = menusByUserType[userinfo.user_access_id]
+        const listMenu = menusByUserType[1]
         const selectedMenu = listMenu.filter(menu => {
             if (menu.Path == pathname) {
                 return menu

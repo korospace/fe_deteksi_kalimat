@@ -1,7 +1,7 @@
 export enum UserType {
     SuperAdmin = 1,
-    Pakar = 2,
-    RegularUser = 3,
+    // Pakar = 2,
+    // RegularUser = 3,
 }
 
 export interface UserInfoType {
